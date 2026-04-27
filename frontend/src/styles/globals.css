@@ -36,6 +36,34 @@ body {
   letter-spacing: -0.011em;
 }
 
+/* === CURSOR: pointer on every interactive element === */
+a,
+button,
+[role="button"],
+[role="tab"],
+[role="menuitem"],
+input[type="submit"],
+input[type="button"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+label[for],
+summary,
+[onclick],
+.clickable,
+.cursor-pointer,
+.btn-primary,
+.btn-secondary {
+  cursor: pointer;
+}
+
+/* Disabled buttons should not look clickable */
+button:disabled,
+[disabled],
+.disabled {
+  cursor: not-allowed;
+}
+
 /* Headings get tighter tracking for premium feel */
 h1, h2, h3, h4 {
   letter-spacing: -0.03em;

@@ -144,10 +144,11 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`relative bg-dark-100 rounded-2xl border p-6 sm:p-8 ${
+                whileHover={{ y: -4 }}
+                className={`relative bg-dark-100 rounded-2xl border p-6 sm:p-8 transition-all hover:shadow-2xl hover:shadow-primary/20 ${
                   plan.popular
                     ? 'border-primary shadow-2xl shadow-primary/20 lg:scale-[1.03]'
-                    : 'border-dark-400'
+                    : 'border-dark-400 hover:border-primary/40'
                 }`}
               >
                 {/* Popular Badge */}
