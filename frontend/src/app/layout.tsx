@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://voxtradeapp.com'),
   title: 'VoxTrade | Trade Smarter. Together.',
   description: 'Get real-time insider trades, politician trades, trending stocks, and AI-powered market insights. Your edge in the stock market.',
   keywords: 'stock market, insider trading, politician trades, trading app, market intelligence, AI trading',
@@ -18,6 +19,13 @@ export const metadata: Metadata = {
     title: 'VoxTrade | Trade Smarter. Together.',
     description: 'Get real-time insider trades, politician trades, trending stocks, and AI-powered market insights.',
     type: 'website',
+    url: 'https://voxtradeapp.com',
+    siteName: 'VoxTrade',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VoxTrade | Trade Smarter. Together.',
+    description: 'Get real-time insider trades, politician trades, trending stocks, and AI-powered market insights.',
   },
 }
 
