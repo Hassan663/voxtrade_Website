@@ -36,32 +36,58 @@ body {
   letter-spacing: -0.011em;
 }
 
-/* === CURSOR: pointer on every interactive element === */
-a,
-button,
-[role="button"],
-[role="tab"],
-[role="menuitem"],
-input[type="submit"],
-input[type="button"],
-input[type="checkbox"],
-input[type="radio"],
-select,
-label[for],
-summary,
-[onclick],
-.clickable,
-.cursor-pointer,
-.btn-primary,
-.btn-secondary {
-  cursor: pointer;
+/* === CUSTOM DOT CURSOR === */
+/* Hide native cursor on devices with a real pointer (mouse/trackpad).
+   Touch devices keep the system default. */
+@media (hover: hover) and (pointer: fine) {
+  *,
+  body,
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label {
+    cursor: none !important;
+  }
 }
 
-/* Disabled buttons should not look clickable */
-button:disabled,
-[disabled],
-.disabled {
-  cursor: not-allowed;
+/* The dot itself */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #00FFC8;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.6);
+  mix-blend-mode: difference;
+}
+
+/* Expanded ring on hover over interactive elements */
+.cursor-dot.hovering {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(0, 255, 200, 0.15);
+  border: 2px solid #00FFC8;
+  box-shadow: 0 0 24px rgba(0, 255, 200, 0.4);
+}
+
+/* Hide before first mouse event (avoids initial flash at 0,0) */
+.cursor-dot-hidden {
+  opacity: 0;
+}
+
+/* Hide custom cursor entirely on touch devices */
+@media (hover: none) {
+  .cursor-dot {
+    display: none;
+  }
 }
 
 /* Headings get tighter tracking for premium feel */
