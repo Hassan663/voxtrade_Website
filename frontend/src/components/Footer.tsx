@@ -2,6 +2,7 @@
 
 import { Twitter, Instagram, Youtube, Linkedin, Mail, MapPin } from 'lucide-react'
 import Link from 'next/link'
+import StoreBadges from './StoreBadges'
 
 const Footer = () => {
   const footerLinks = {
@@ -74,6 +75,9 @@ const Footer = () => {
                 <span>Denver, Colorado, USA</span>
               </div>
             </div>
+
+            {/* Store badges */}
+            <StoreBadges className="mt-6 justify-center md:justify-start" size="h-10 w-auto" />
 
             {/* Social Links */}
             <div className="flex gap-4 mt-6 justify-center md:justify-start">

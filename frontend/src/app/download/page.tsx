@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion'
 import {
-  Apple,
-  Smartphone,
   Star,
   CheckCircle2,
   Download as DownloadIcon,
@@ -15,6 +13,7 @@ import {
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import StoreBadges from '@/components/StoreBadges'
 
 export default function DownloadPage() {
   const requirements = [
@@ -59,38 +58,8 @@ export default function DownloadPage() {
               Free on iOS and Android. No credit card. No trial limits. Just download and start trading smarter.
             </p>
 
-            {/* Store Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <motion.a
-                href="https://apps.apple.com/app/voxtrade"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-black font-semibold transition-all hover:shadow-2xl hover:shadow-primary/20"
-              >
-                <Apple className="w-8 h-8" />
-                <div className="text-left">
-                  <div className="text-xs">Download on the</div>
-                  <div className="text-lg font-bold leading-tight">App Store</div>
-                </div>
-              </motion.a>
-
-              <motion.a
-                href="https://play.google.com/store/apps/details?id=com.voxtrade"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-black font-semibold transition-all hover:shadow-2xl hover:shadow-primary/20"
-              >
-                <Smartphone className="w-8 h-8" />
-                <div className="text-left">
-                  <div className="text-xs">Get it on</div>
-                  <div className="text-lg font-bold leading-tight">Google Play</div>
-                </div>
-              </motion.a>
-            </div>
+            {/* Store badges */}
+            <StoreBadges className="justify-center mb-8" size="h-14 w-auto" />
 
             {/* Ratings */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-sm">
@@ -246,14 +215,7 @@ export default function DownloadPage() {
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Download, sign up, and start tracking the smart money. Your account works across all your devices.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://apps.apple.com/app/voxtrade" target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex items-center justify-center gap-2">
-                <Apple className="w-5 h-5" /> App Store
-              </a>
-              <a href="https://play.google.com/store/apps/details?id=com.voxtrade" target="_blank" rel="noopener noreferrer" className="btn-secondary inline-flex items-center justify-center gap-2">
-                <Smartphone className="w-5 h-5" /> Google Play
-              </a>
-            </div>
+            <StoreBadges className="justify-center" size="h-12 w-auto" />
             <p className="text-sm text-gray-500 mt-6">
               Need help? <Link href="/help" className="text-primary hover:underline">Visit our help center</Link>
             </p>

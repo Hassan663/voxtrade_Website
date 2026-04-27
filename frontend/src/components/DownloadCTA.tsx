@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Apple, Play, QrCode, Smartphone } from 'lucide-react'
+import { QrCode } from 'lucide-react'
+import StoreBadges from './StoreBadges'
 
 const DownloadCTA = () => {
   return (
@@ -43,34 +44,8 @@ const DownloadCTA = () => {
                 Download VoxTrade for free and start getting real-time insider trades, politician trades, and AI-powered market insights.
               </p>
 
-              {/* Download Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-3 bg-white text-black px-6 py-4 rounded-xl hover:bg-gray-100 transition-colors"
-                >
-                  <Apple className="w-8 h-8" />
-                  <div className="text-left">
-                    <div className="text-xs">Download on the</div>
-                    <div className="text-lg font-semibold">App Store</div>
-                  </div>
-                </motion.a>
-
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-3 bg-white text-black px-6 py-4 rounded-xl hover:bg-gray-100 transition-colors"
-                >
-                  <Play className="w-8 h-8 fill-current" />
-                  <div className="text-left">
-                    <div className="text-xs">Get it on</div>
-                    <div className="text-lg font-semibold">Google Play</div>
-                  </div>
-                </motion.a>
-              </div>
+              {/* Store badges */}
+              <StoreBadges className="mb-8" size="h-14 w-auto" />
 
               {/* QR Code */}
               <div className="flex items-center gap-4 bg-white/5 backdrop-blur-xl border border-white/10 hover:border-primary/40 transition-colors rounded-xl p-4 inline-flex">

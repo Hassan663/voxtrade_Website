@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import AnimatedBackground from './AnimatedBackground'
+import StoreBadges from './StoreBadges'
 
 /* ---------- count-up hook ---------- */
 const useCountUp = (target: number, duration = 1800, start = false) => {
@@ -411,6 +412,9 @@ const Hero = () => {
               </motion.a>
             </div>
             <p className="text-xs sm:text-sm text-gray-500 mt-4">Free forever. No credit card required.</p>
+
+            {/* Store badges */}
+            <StoreBadges className="mt-6" size="h-11 w-auto" />
           </motion.div>
 
           {/* RIGHT - 60% : Phone with floating satellite boxes */}
