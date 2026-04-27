@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
-import CustomCursor from '@/components/CustomCursor'
 
 export const metadata: Metadata = {
   title: 'VoxTrade | Trade Smarter. Together.',
@@ -30,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-black text-white font-sora">
-        <CustomCursor />
         {children}
       </body>
     </html>

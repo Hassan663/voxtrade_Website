@@ -36,58 +36,17 @@ body {
   letter-spacing: -0.011em;
 }
 
-/* === CUSTOM DOT CURSOR === */
-/* Hide native cursor on devices with a real pointer (mouse/trackpad).
-   Touch devices keep the system default. */
-@media (hover: hover) and (pointer: fine) {
-  *,
-  body,
-  a,
-  button,
-  input,
-  select,
-  textarea,
-  label {
-    cursor: none !important;
-  }
+/* === CYAN DOT CURSOR (replaces native arrow) === */
+* {
+  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="%2300FFC8"/></svg>') 6 6, auto;
 }
 
-/* The dot itself */
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #00FFC8;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99999;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
-  box-shadow: 0 0 12px rgba(0, 255, 200, 0.6);
-  mix-blend-mode: difference;
+a, button, [role="button"], input, select, textarea, label[for], summary, .clickable, .card, .cursor-pointer, .btn-primary, .btn-secondary {
+  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%2300FFC8" fill-opacity="0.3" stroke="%2300FFC8" stroke-width="2"/></svg>') 10 10, auto;
 }
 
-/* Expanded ring on hover over interactive elements */
-.cursor-dot.hovering {
-  width: 32px;
-  height: 32px;
-  background-color: rgba(0, 255, 200, 0.15);
-  border: 2px solid #00FFC8;
-  box-shadow: 0 0 24px rgba(0, 255, 200, 0.4);
-}
-
-/* Hide before first mouse event (avoids initial flash at 0,0) */
-.cursor-dot-hidden {
-  opacity: 0;
-}
-
-/* Hide custom cursor entirely on touch devices */
-@media (hover: none) {
-  .cursor-dot {
-    display: none;
-  }
+button:disabled, [disabled], .disabled {
+  cursor: not-allowed;
 }
 
 /* Headings get tighter tracking for premium feel */
