@@ -29,13 +29,6 @@ export default function AboutPage() {
     },
   ]
 
-  const stats = [
-    { value: '50K+', label: 'Active Users' },
-    { value: '1M+', label: 'Trades Tracked' },
-    { value: '535', label: 'Politicians Monitored' },
-    { value: '24/7', label: 'Real-Time Updates' },
-  ]
-
   const team = [
     {
       name: 'Brendan Elman',
@@ -72,27 +65,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-dark-100">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-4xl md:text-5xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-gray-400 mt-2">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Story Section */}
       <section className="section-padding">
         <div className="container-custom">
@@ -121,7 +93,7 @@ export default function AboutPage() {
                   delivers it to your phone in real-time with AI-powered insights.
                 </p>
                 <p>
-                  Today, VoxTrade serves over 50,000 traders who use our platform to 
+                  Today, VoxTrade serves a growing community of traders who use our platform to 
                   make smarter investment decisions. And we're just getting started.
                 </p>
               </div>

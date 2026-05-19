@@ -117,43 +117,6 @@ export default function InsiderTradesPage() {
       </section>
 
       {/* Why It Matters */}
-      <section className="section-padding bg-dark-100">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
-          >
-            <h2 className="text-4xl font-bold mb-4">Why Insider Trades Matter</h2>
-            <p className="text-xl text-gray-400">
-              Insiders know their company better than anyone. When they put their own money at stake,
-              it&apos;s often the strongest signal you&apos;ll find.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { stat: '7%+', label: 'Average outperformance of stocks with cluster insider buying (12-month)' },
-              { stat: '60s', label: 'How fast VoxTrade detects new Form 4 filings' },
-              { stat: '10k+', label: 'Form 4 filings tracked every month across U.S. markets' },
-            ].map((s, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="card text-center"
-              >
-                <div className="text-5xl font-bold gradient-text mb-3">{s.stat}</div>
-                <p className="text-gray-400">{s.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features */}
       <section className="section-padding">
         <div className="container-custom">

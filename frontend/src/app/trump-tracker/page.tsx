@@ -133,32 +133,6 @@ export default function TrumpTrackerPage() {
         </div>
       </section>
 
-      {/* Why It Works */}
-      <section className="section-padding bg-dark-100">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {[
-              { stat: '<1s', label: 'Detection latency', desc: 'From posted to alert sent.' },
-              { stat: '$2B+', label: 'Average market impact', desc: 'Per market-moving post.' },
-              { stat: '94%', label: 'Sentiment accuracy', desc: 'Validated against next-hour price action.' },
-            ].map((s, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="card text-center"
-              >
-                <div className="text-5xl font-bold gradient-text mb-2">{s.stat}</div>
-                <div className="text-lg font-semibold mb-1">{s.label}</div>
-                <p className="text-gray-400 text-sm">{s.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features */}
       <section className="section-padding">
         <div className="container-custom">

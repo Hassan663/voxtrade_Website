@@ -134,25 +134,6 @@ const Testimonials = () => {
           ))}
         </div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-dark-400"
-        >
-          {[
-            { value: '4.9', label: 'App Store Rating' },
-            { value: '50K+', label: 'Active Users' },
-            { value: '1M+', label: 'Trades Tracked' },
-            { value: '99.9%', label: 'Uptime' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold gradient-text">{stat.value}</div>
-              <div className="text-gray-500 mt-1">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   )

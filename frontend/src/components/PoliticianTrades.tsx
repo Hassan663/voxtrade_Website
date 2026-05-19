@@ -43,12 +43,6 @@ const PoliticianTrades = () => {
     },
   ]
 
-  const stats = [
-    { value: '535', label: 'Congress Members Tracked' },
-    { value: '12,000+', label: 'Trades This Year' },
-    { value: '24hrs', label: 'Avg. Reporting Delay' },
-  ]
-
   return (
     <section className="section-padding relative overflow-hidden bg-dark-100">
       {/* Background mesh */}
@@ -161,23 +155,6 @@ const PoliticianTrades = () => {
             <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-8">
               Members of Congress consistently outperform the S&P 500. Now you can see their trades and follow their moves via STOCK Act filings.
             </p>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mb-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="text-2xl md:text-3xl font-bold text-blue-400">{stat.value}</div>
-                  <div className="text-sm text-gray-500">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
 
             {/* Info Cards */}
             <div className="space-y-4 mb-8">

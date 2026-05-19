@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const productLinks = [
     { name: 'Insider Trades', href: '/insider-trades', icon: TrendingUp, desc: 'Real-time SEC Form 4 alerts' },
-    { name: 'Politician Trades', href: '/politician-trades', icon: Users, desc: 'STOCK Act filings, all 535' },
+    { name: 'Politician Trades', href: '/politician-trades', icon: Users, desc: 'STOCK Act filings, every member' },
     { name: 'Trump Tracker', href: '/trump-tracker', icon: Activity, desc: 'Truth Social market signals' },
     { name: 'VoxAI', href: '/vox-ai', icon: Bot, desc: 'Your personal AI analyst' },
   ]

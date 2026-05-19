@@ -59,27 +59,7 @@ export default function DownloadPage() {
             </p>
 
             {/* Store badges */}
-            <StoreBadges className="justify-center mb-8" size="h-14 w-auto" />
-
-            {/* Ratings */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-sm">
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <span className="text-gray-400">4.9 on App Store · 50k+ ratings</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <span className="text-gray-400">4.8 on Google Play · 35k+ ratings</span>
-              </div>
-            </div>
+            <StoreBadges className="justify-center" size="h-14 w-auto" />
           </motion.div>
         </div>
       </section>

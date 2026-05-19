@@ -22,41 +22,6 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 import AnimatedBackground from './AnimatedBackground'
 import StoreBadges from './StoreBadges'
 
-/* ---------- count-up hook ---------- */
-const useCountUp = (target: number, duration = 1800, start = false) => {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    if (!start) return
-    let raf = 0
-    const t0 = performance.now()
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / duration)
-      const eased = 1 - Math.pow(1 - p, 3)
-      setCount(Math.floor(target * eased))
-      if (p < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [target, duration, start])
-  return count
-}
-
-const StatNumber = ({ value, suffix }: { value: number; suffix: string }) => {
-  const [inView, setInView] = useState(false)
-  const ref = useRef<HTMLSpanElement>(null)
-  useEffect(() => {
-    if (!ref.current) return
-    const io = new IntersectionObserver(
-      ([e]) => e.isIntersecting && setInView(true),
-      { threshold: 0.3 },
-    )
-    io.observe(ref.current)
-    return () => io.disconnect()
-  }, [])
-  const n = useCountUp(value, 1800, inView)
-  return <span ref={ref}>{n.toLocaleString()}{suffix}</span>
-}
-
 /* ---------- screen transition ---------- */
 const screenAnim = {
   initial: { opacity: 0, x: 20 },
@@ -332,12 +297,6 @@ const Hero = () => {
     pauseUntilRef.current = Date.now() + 10000
   }, [])
 
-  const stats = [
-    { value: 50, suffix: 'K+', label: 'Active Traders' },
-    { value: 1, suffix: 'M+', label: 'Trades Tracked' },
-    { value: 99, suffix: '.9%', label: 'Uptime' },
-  ]
-
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-black py-24 lg:py-16">
       <AnimatedBackground variant="hero" showParticles showGrid />
@@ -372,23 +331,6 @@ const Hero = () => {
             <p className="text-base sm:text-lg text-gray-400 mb-8 sm:mb-10 leading-relaxed max-w-md">
               The same edge as Wall Street - distilled into a single app.
             </p>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10 max-w-md">
-              {stats.map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.1 }}
-                >
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text-cyan tracking-tight leading-none">
-                    <StatNumber value={s.value} suffix={s.suffix} />
-                  </div>
-                  <div className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider mt-1.5 leading-tight">{s.label}</div>
-                </motion.div>
-              ))}
-            </div>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -445,7 +387,7 @@ const Hero = () => {
                 />
                 <MiniBox
                   icon={Rocket}
-                  label="50K+ Traders"
+                  label="Active Traders"
                   style={{ top: 290, left: -160, right: 'auto' }}
                   bobDuration={6}
                   bobOffset={2}
@@ -453,7 +395,7 @@ const Hero = () => {
                 />
                 <MiniBox
                   icon={Zap}
-                  label="99.9% Uptime"
+                  label="Reliable Uptime"
                   style={{ top: 290, right: -160, left: 'auto' }}
                   bobDuration={5}
                   bobOffset={1.5}
