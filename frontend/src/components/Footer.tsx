@@ -29,25 +29,18 @@ const Footer = () => {
       { name: 'Features', href: '#features' },
       { name: 'Pricing', href: '#pricing' },
       { name: 'Download', href: '#download' },
-      { name: 'Roadmap', href: '#' },
     ],
     company: [
-      { name: 'About Us', href: '#' },
-      { name: 'Careers', href: '#' },
-      { name: 'Press', href: '#' },
-      { name: 'Contact', href: '#' },
+      { name: 'About Us', href: '/about' },
+      { name: 'Contact', href: '/contact' },
     ],
     resources: [
-      { name: 'Blog', href: '#' },
-      { name: 'Help Center', href: '#' },
-      { name: 'API Docs', href: '#' },
-      { name: 'Status', href: '#' },
+      { name: 'Blog', href: '/blog' },
+      { name: 'Help', href: '/help' },
     ],
     legal: [
-      { name: 'Privacy Policy', href: '#' },
-      { name: 'Terms of Service', href: '#' },
-      { name: 'Cookie Policy', href: '#' },
-      { name: 'Disclaimer', href: '#' },
+      { name: 'Privacy Policy', href: '/privacy' },
+      { name: 'Terms of Service', href: '/terms' },
     ],
   }
 
@@ -67,13 +60,28 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-3 lg:col-span-2 flex flex-col items-center md:items-start">
             <Link href="/" className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 flex items-center justify-center">
-                <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
-                  <rect x="8" y="45" width="8" height="30" rx="2" fill="#00CB9F"/>
-                  <rect x="22" y="25" width="10" height="55" rx="2" fill="#00FFEA"/>
-                  <rect x="38" y="15" width="10" height="70" rx="2" fill="#00FFEA"/>
-                  <rect x="54" y="25" width="10" height="55" rx="2" fill="#00FFEA"/>
-                  <rect x="70" y="35" width="10" height="40" rx="2" fill="#00CB9F"/>
-                  <rect x="84" y="45" width="8" height="30" rx="2" fill="#00CB9F"/>
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="footerLogoGlow" x="-40%" y="-40%" width="180%" height="180%">
+                      <feGaussianBlur stdDeviation="2.2" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <g filter="url(#footerLogoGlow)">
+                    <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
+                    <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
+                    <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#3DF0DA" />
+                    <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
+                    <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
+                    <rect x="12" y="40" width="12" height="24" rx="3" fill="#00C896" />
+                    <rect x="28" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
+                    <rect x="44" y="20" width="12" height="56" rx="3" fill="#3DF0DA" />
+                    <rect x="60" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
+                    <rect x="76" y="40" width="12" height="24" rx="3" fill="#00C896" />
+                  </g>
                 </svg>
               </div>
               <span className="text-2xl font-bold tracking-tight">
@@ -86,13 +94,13 @@ const Footer = () => {
 
             {/* Contact Info */}
             <div className="space-y-3 w-full md:w-auto">
-              <a href="mailto:support@voxtradeapp.com" className="flex items-center justify-center md:justify-start gap-3 text-gray-400 hover:text-primary transition-colors text-sm sm:text-base">
+              <a href="mailto:Brendan@voxtradeapp.com" className="flex items-center justify-center md:justify-start gap-3 text-gray-400 hover:text-primary transition-colors text-sm sm:text-base">
                 <Mail className="w-5 h-5 flex-shrink-0" />
-                <span className="break-all">support@voxtradeapp.com</span>
+                <span className="break-all">Brendan@voxtradeapp.com</span>
               </a>
               <div className="flex items-center justify-center md:justify-start gap-3 text-gray-400 text-sm sm:text-base">
                 <MapPin className="w-5 h-5 flex-shrink-0" />
-                <span>Denver, Colorado, USA</span>
+                <span>Kalispell, Montana, USA</span>
               </div>
             </div>
 

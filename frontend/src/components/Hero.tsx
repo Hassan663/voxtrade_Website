@@ -450,13 +450,28 @@ const Hero = () => {
 
                     <div className="flex items-center justify-between px-5 py-2">
                       <div className="flex items-center gap-1.5">
-                        <svg width="20" height="20" viewBox="0 0 100 100" fill="none">
-                          <rect x="8" y="45" width="8" height="30" rx="2" fill="#00CB9F" />
-                          <rect x="22" y="25" width="10" height="55" rx="2" fill="#00FFEA" />
-                          <rect x="38" y="15" width="10" height="70" rx="2" fill="#00FFEA" />
-                          <rect x="54" y="25" width="10" height="55" rx="2" fill="#00FFEA" />
-                          <rect x="70" y="35" width="10" height="40" rx="2" fill="#00CB9F" />
-                          <rect x="84" y="45" width="8" height="30" rx="2" fill="#00CB9F" />
+                        <svg width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <filter id="heroLogoGlow" x="-40%" y="-40%" width="180%" height="180%">
+                              <feGaussianBlur stdDeviation="2.2" result="blur" />
+                              <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                              </feMerge>
+                            </filter>
+                          </defs>
+                          <g filter="url(#heroLogoGlow)">
+                            <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
+                            <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
+                            <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#3DF0DA" />
+                            <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
+                            <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
+                            <rect x="12" y="40" width="12" height="24" rx="3" fill="#00C896" />
+                            <rect x="28" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
+                            <rect x="44" y="20" width="12" height="56" rx="3" fill="#3DF0DA" />
+                            <rect x="60" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
+                            <rect x="76" y="40" width="12" height="24" rx="3" fill="#00C896" />
+                          </g>
                         </svg>
                         <span className="text-sm font-bold tracking-tight">
                           Vox<span className="text-primary">Trade</span>
