@@ -407,10 +407,10 @@ const ProfileScreen = () => {
       {/* Identity */}
       <div className={`${CARD} p-4 flex items-center gap-3`}>
         <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center">
-          <span className="text-lg font-bold text-black">B</span>
+          <span className="text-lg font-bold text-black">V</span>
         </div>
         <div>
-          <div className="text-sm font-bold">Brendan</div>
+          <div className="text-sm font-bold">VoxTrade User</div>
           <span className="inline-flex items-center gap-1 mt-1 rounded-full border border-primary/40 px-2 py-0.5 text-[8px] font-semibold text-primary">
             <Sparkles className="w-2.5 h-2.5" /> PRO MEMBER
           </span>

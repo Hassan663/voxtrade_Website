@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { BrainCircuit, X, Send, Volume2, VolumeX } from 'lucide-react'
+import { X, Send, Volume2, VolumeX } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 type Message = { role: 'user' | 'ai'; text: string }
@@ -158,7 +158,18 @@ const AIChatBot = () => {
               <div className="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
                 <div className="flex items-center gap-3">
                   <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-primary to-emerald-400 flex items-center justify-center flex-shrink-0">
-                    <BrainCircuit className="w-5 h-5 text-black" strokeWidth={2.25} />
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
+                      <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#0a0a0a"/>
+                      <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#0a0a0a"/>
+                      <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#0a0a0a"/>
+                      <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#0a0a0a"/>
+                      <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#0a0a0a"/>
+                      <rect x="12" y="40" width="12" height="24" rx="3" fill="#0a0a0a"/>
+                      <rect x="28" y="28" width="12" height="44" rx="3" fill="#0a0a0a"/>
+                      <rect x="44" y="20" width="12" height="56" rx="3" fill="#0a0a0a"/>
+                      <rect x="60" y="28" width="12" height="44" rx="3" fill="#0a0a0a"/>
+                      <rect x="76" y="40" width="12" height="24" rx="3" fill="#0a0a0a"/>
+                    </svg>
                     <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-400 border-2 border-black" />
                   </div>
                   <div>

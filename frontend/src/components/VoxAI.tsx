@@ -74,7 +74,18 @@ const VoxAI = () => {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-full px-4 py-2 mb-6">
-            <BrainCircuit className="w-4 h-4 text-primary" />
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
+              <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896"/>
+              <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9"/>
+              <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#3DF0DA"/>
+              <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9"/>
+              <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896"/>
+              <rect x="12" y="40" width="12" height="24" rx="3" fill="#00C896"/>
+              <rect x="28" y="28" width="12" height="44" rx="3" fill="#1CE7C9"/>
+              <rect x="44" y="20" width="12" height="56" rx="3" fill="#3DF0DA"/>
+              <rect x="60" y="28" width="12" height="44" rx="3" fill="#1CE7C9"/>
+              <rect x="76" y="40" width="12" height="24" rx="3" fill="#00C896"/>
+            </svg>
             <span className="text-primary text-sm font-medium">Powered by AI</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6">
@@ -103,7 +114,18 @@ const VoxAI = () => {
               <div className="bg-white/[0.03] px-6 py-4 border-b border-white/10 flex items-center gap-3">
                 <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-primary to-emerald-400 flex items-center justify-center shadow-lg shadow-primary/40 animate-pulse-glow">
                   <span className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
-                  <BrainCircuit className="relative w-6 h-6 text-black" strokeWidth={2.25} />
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative w-6 h-6">
+                    <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#0a0a0a"/>
+                    <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#0a0a0a"/>
+                    <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#0a0a0a"/>
+                    <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#0a0a0a"/>
+                    <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#0a0a0a"/>
+                    <rect x="12" y="40" width="12" height="24" rx="3" fill="#0a0a0a"/>
+                    <rect x="28" y="28" width="12" height="44" rx="3" fill="#0a0a0a"/>
+                    <rect x="44" y="20" width="12" height="56" rx="3" fill="#0a0a0a"/>
+                    <rect x="60" y="28" width="12" height="44" rx="3" fill="#0a0a0a"/>
+                    <rect x="76" y="40" width="12" height="24" rx="3" fill="#0a0a0a"/>
+                  </svg>
                 </div>
                 <div>
                   <div className="font-semibold">VoxAI Assistant</div>
