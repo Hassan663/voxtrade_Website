@@ -123,7 +123,18 @@ const AIChatBot = () => {
               exit={{ rotate: 90, opacity: 0 }}
               className="relative"
             >
-              <BrainCircuit className="w-6 h-6 sm:w-7 sm:h-7 text-black" strokeWidth={2.5} />
+              <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 sm:w-8 sm:h-8">
+                <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#0a0a0a"/>
+                <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#0a0a0a"/>
+                <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#0a0a0a"/>
+                <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#0a0a0a"/>
+                <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#0a0a0a"/>
+                <rect x="12" y="40" width="12" height="24" rx="3" fill="#0a0a0a"/>
+                <rect x="28" y="28" width="12" height="44" rx="3" fill="#0a0a0a"/>
+                <rect x="44" y="20" width="12" height="56" rx="3" fill="#0a0a0a"/>
+                <rect x="60" y="28" width="12" height="44" rx="3" fill="#0a0a0a"/>
+                <rect x="76" y="40" width="12" height="24" rx="3" fill="#0a0a0a"/>
+              </svg>
             </motion.span>
           )}
         </AnimatePresence>

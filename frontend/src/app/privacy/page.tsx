@@ -129,8 +129,8 @@ export default function PrivacyPage() {
                     If you have questions about this Privacy Policy, please contact us at:
                   </p>
                   <div className="mt-4 bg-dark-100 rounded-xl p-6 border border-dark-400">
-                    <p className="text-gray-300">Email: privacy@voxtradeapp.com</p>
-                    <p className="text-gray-300">Address: Denver, Colorado, USA</p>
+                    <p className="text-gray-300">Email: brendan@voxtradeapp.com</p>
+                    <p className="text-gray-300">Address: Kalispell, Montana, USA</p>
                   </div>
                 </section>
               </div>

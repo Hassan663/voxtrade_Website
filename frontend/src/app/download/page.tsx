@@ -26,7 +26,7 @@ export default function DownloadPage() {
   const reasons = [
     { icon: Zap, title: 'Real-Time Data', desc: 'SEC filings, news, and price action streamed live to your device.' },
     { icon: Bell, title: 'Push Alerts', desc: 'Be the first to know about every market-moving signal.' },
-    { icon: Shield, title: 'Bank-Level Security', desc: 'AES-256 encryption, biometric login, zero-knowledge architecture.' },
+    { icon: Shield, title: 'Bank-Level Security', desc: 'AES-256 encryption, zero-knowledge architecture.' },
   ]
 
   const reviews = [

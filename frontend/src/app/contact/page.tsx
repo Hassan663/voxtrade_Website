@@ -32,13 +32,13 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: 'Email Us',
-      value: 'support@voxtradeapp.com',
+      value: 'brendan@voxtradeapp.com',
       description: 'We respond within 24 hours',
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'Denver, Colorado',
+      value: 'Kalispell, Montana, USA',
       description: 'United States',
     },
     {
@@ -239,10 +239,10 @@ export default function ContactPage() {
                   For urgent billing or account issues, email us directly:
                 </p>
                 <a
-                  href="mailto:urgent@voxtradeapp.com"
+                  href="mailto:brendan@voxtradeapp.com"
                   className="text-primary font-medium hover:underline"
                 >
-                  urgent@voxtradeapp.com
+                  brendan@voxtradeapp.com
                 </a>
               </div>
             </motion.div>

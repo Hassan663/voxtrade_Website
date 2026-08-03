@@ -123,7 +123,7 @@ export default function FeaturesPage() {
         {
           icon: Shield,
           title: 'Bank-Level Security',
-          description: 'AES-256 encryption at rest, TLS 1.3 in transit, biometric auth, and zero-knowledge architecture.',
+          description: 'AES-256 encryption at rest, TLS 1.3 in transit, and zero-knowledge architecture.',
           color: 'from-gray-500 to-slate-500',
         },
       ],

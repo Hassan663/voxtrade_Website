@@ -147,7 +147,7 @@ const FAQ = () => {
         >
           <p className="text-gray-400 mb-4">Still have questions?</p>
           <a
-            href="mailto:support@voxtradeapp.com"
+            href="mailto:brendan@voxtradeapp.com"
             className="text-primary hover:text-primary-600 font-semibold transition-colors"
           >
             Contact our support team →

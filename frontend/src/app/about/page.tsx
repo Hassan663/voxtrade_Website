@@ -77,7 +77,7 @@ export default function AboutPage() {
               <h2 className="text-4xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-gray-400">
                 <p>
-                  VoxTrade started in 2024 when our founder noticed something troubling: 
+                  VoxTrade started in 2025 when our founder noticed something troubling:
                   while institutional investors had real-time access to insider trading data 
                   and political trade disclosures, retail investors were left in the dark.
                 </p>

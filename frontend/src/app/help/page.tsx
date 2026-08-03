@@ -223,7 +223,7 @@ export default function HelpPage() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <motion.a
-              href="mailto:support@voxtradeapp.com"
+              href="mailto:brendan@voxtradeapp.com"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -235,7 +235,7 @@ export default function HelpPage() {
               </div>
               <h3 className="font-semibold mb-2">Email Support</h3>
               <p className="text-gray-400 text-sm mb-3">Reply within 24 hours.</p>
-              <span className="text-primary text-sm">support@voxtradeapp.com</span>
+              <span className="text-primary text-sm">brendan@voxtradeapp.com</span>
             </motion.a>
 
             <motion.div
@@ -284,7 +284,7 @@ export default function HelpPage() {
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Our team replies to every message. Most queries resolved in under 4 hours.
             </p>
-            <Link href="mailto:support@voxtradeapp.com" className="btn-primary inline-flex items-center gap-2">
+            <Link href="mailto:brendan@voxtradeapp.com" className="btn-primary inline-flex items-center gap-2">
               Contact Support <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>

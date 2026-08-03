@@ -150,7 +150,7 @@ export default function TermsPage() {
                   <h2 className="text-2xl font-semibold mb-4 text-primary">12. Governing Law</h2>
                   <p className="text-gray-300 leading-relaxed">
                     These terms shall be governed by and construed in accordance with the laws of 
-                    the State of Colorado, without regard to conflict of law provisions.
+                    the State of Montana, without regard to conflict of law provisions.
                   </p>
                 </section>
 
@@ -160,8 +160,8 @@ export default function TermsPage() {
                     For questions about these Terms of Service:
                   </p>
                   <div className="mt-4 bg-dark-100 rounded-xl p-6 border border-dark-400">
-                    <p className="text-gray-300">Email: legal@voxtradeapp.com</p>
-                    <p className="text-gray-300">Address: Denver, Colorado, USA</p>
+                    <p className="text-gray-300">Email: brendan@voxtradeapp.com</p>
+                    <p className="text-gray-300">Address: Kalispell, Montana, USA</p>
                   </div>
                 </section>
               </div>

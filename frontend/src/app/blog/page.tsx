@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { Calendar, Clock, ArrowRight, TrendingUp, User } from 'lucide-react'
-import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
@@ -131,7 +130,7 @@ export default function BlogPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <Link href={`/blog/${featuredPost.slug}`}>
+            <div>
               <div className="grid lg:grid-cols-2 gap-8 bg-dark-100 rounded-2xl border border-dark-400 overflow-hidden hover:border-primary/50 transition-all">
                 {/* Image */}
                 <div className="h-64 lg:h-auto bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
@@ -163,7 +162,7 @@ export default function BlogPage() {
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -180,7 +179,7 @@ export default function BlogPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Link href={`/blog/${post.slug}`}>
+                <div>
                   <div className="card h-full flex flex-col group">
                     {/* Thumbnail */}
                     <div className="h-48 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl mb-4 flex items-center justify-center">
@@ -202,7 +201,7 @@ export default function BlogPage() {
                       <span>{post.readTime}</span>
                     </div>
                   </div>
-                </Link>
+                </div>
               </motion.article>
             ))}
           </div>
