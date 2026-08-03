@@ -5,236 +5,450 @@ import {
   ArrowRight,
   Play,
   TrendingUp,
-  Users,
+  TrendingDown,
   BrainCircuit,
-  Activity,
-  LayoutDashboard,
-  ArrowUpRight,
-  ArrowDownRight,
-  Send,
-  Bell,
   Landmark,
   Sparkles,
   Zap,
   Rocket,
+  Bell,
+  Home,
+  LineChart,
+  Star,
+  User,
+  Search,
+  ChevronRight,
+  BarChart3,
+  Newspaper,
+  Hexagon,
+  Activity,
+  Pencil,
+  Shield,
+  Settings,
+  HelpCircle,
 } from 'lucide-react'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import AnimatedBackground from './AnimatedBackground'
 import StoreBadges from './StoreBadges'
 
-/* ---------- screen transition ---------- */
+/*
+  In-phone app demo — illustrative showcase, not live data.
+  Visual language mirrors the real VoxTrade app: pure-black bg, dark-gray cards
+  with hairline borders, teal (#00FFC8) accent, serif display titles, and the
+  4-tab bottom nav (Home / Markets / Watchlist / Profile) with a teal-glow
+  active chip.
+*/
+
+/* ---------- shared bits ---------- */
 const screenAnim = {
-  initial: { opacity: 0, x: 20 },
+  initial: { opacity: 0, x: 16 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -20 },
+  exit: { opacity: 0, x: -16 },
   transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] as const },
 }
 
-/* ---------- mini chart ---------- */
-const SparkChart = () => {
-  const points = [
-    [0, 28], [10, 24], [20, 26], [30, 18], [40, 20],
-    [50, 14], [60, 16], [70, 10], [80, 12], [90, 6], [100, 8],
-  ]
-  const path = points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x},${y}`).join(' ')
-  const fill = `${path} L100,40 L0,40 Z`
+const CARD = 'bg-dark-300 border border-white/[0.06] rounded-2xl'
+
+const LogoMark = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="heroDemoGlow" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="2.2" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+    <g filter="url(#heroDemoGlow)">
+      <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
+      <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
+      <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#3DF0DA" />
+      <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
+      <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
+      <rect x="12" y="40" width="12" height="24" rx="3" fill="#00C896" />
+      <rect x="28" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
+      <rect x="44" y="20" width="12" height="56" rx="3" fill="#3DF0DA" />
+      <rect x="60" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
+      <rect x="76" y="40" width="12" height="24" rx="3" fill="#00C896" />
+    </g>
+  </svg>
+)
+
+const LivePill = () => (
+  <span className="inline-flex items-center gap-1 rounded-full border border-primary/40 px-2 py-0.5">
+    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+    <span className="text-[8px] font-semibold tracking-wider text-primary">LIVE</span>
+  </span>
+)
+
+/* ---------- Watchlist area chart (smooth line + teal gradient + grid) ---------- */
+const AreaChart = () => {
+  const line =
+    'M0,26 C8,24 12,15 20,13 C28,11 33,20 42,22 C51,24 56,27 64,30 C71,32 75,33 82,27 C88,22 94,21 100,19'
+  const area = `${line} L100,40 L0,40 Z`
   return (
-    <svg viewBox="0 0 100 40" className="w-full h-16" preserveAspectRatio="none">
+    <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="w-full h-full">
       <defs>
-        <linearGradient id="spark" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#00FFC8" stopOpacity="0.4" />
+        <linearGradient id="wlFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#00FFC8" stopOpacity="0.28" />
           <stop offset="100%" stopColor="#00FFC8" stopOpacity="0" />
         </linearGradient>
       </defs>
-      <path d={fill} fill="url(#spark)" />
-      <path d={path} fill="none" stroke="#00FFC8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      {[8, 16, 24, 32].map((y) => (
+        <line
+          key={y}
+          x1="0"
+          y1={y}
+          x2="100"
+          y2={y}
+          stroke="rgba(255,255,255,0.05)"
+          strokeWidth="0.5"
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      <path d={area} fill="url(#wlFill)" />
+      <motion.path
+        d={line}
+        fill="none"
+        stroke="#00FFC8"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.4, ease: 'easeInOut' }}
+      />
     </svg>
   )
 }
 
-/* ---------- screens ---------- */
-const DashboardScreen = () => (
-  <motion.div key="dashboard" {...screenAnim} className="space-y-3">
-    <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-      <div className="flex justify-between items-start mb-2">
-        <div>
-          <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Portfolio</div>
-          <div className="text-2xl font-bold text-white">$124,832</div>
-          <div className="text-primary text-xs flex items-center gap-1 mt-1">
-            <TrendingUp className="w-3 h-3" /> +12.4% today
+/* ================= SCREENS ================= */
+
+/* ---- Home / Dashboard ---- */
+const HomeScreen = () => {
+  const chips = [
+    { label: 'Overview', icon: BarChart3, active: true },
+    { label: 'Trending', icon: TrendingUp, active: false },
+    { label: 'News', icon: Newspaper, active: false },
+    { label: 'Trump', icon: Activity, active: false },
+  ]
+  const ranks = [
+    { rank: '#1', ticker: 'SPY', mentions: 92, bull: true },
+    { rank: '#2', ticker: 'NVDA', mentions: 78, bull: true },
+    { rank: '#3', ticker: 'TSLA', mentions: 51, bull: false },
+  ]
+  return (
+    <motion.div key="home" {...screenAnim} className="space-y-3.5">
+      {/* Brand header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <div className="w-7 h-7 rounded-lg bg-dark-400 border border-white/10 flex items-center justify-center">
+            <LogoMark size={16} />
+          </div>
+          <span className="text-sm font-bold tracking-tight">
+            Vox<span className="text-primary">Trade</span>
+          </span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-7 h-7 rounded-lg bg-dark-400 border border-white/10 flex items-center justify-center">
+            <Bell className="w-3.5 h-3.5 text-gray-300" />
+          </div>
+          <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+            <span className="text-[11px] font-bold text-black">B</span>
           </div>
         </div>
-        <span className="text-[9px] text-gray-500">7D</span>
       </div>
-      <SparkChart />
-    </div>
-    <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-      <div className="flex justify-between items-center mb-3">
-        <span className="text-[10px] font-semibold uppercase tracking-widest">Trending</span>
-        <span className="text-[10px] text-primary">View All</span>
+
+      {/* Title */}
+      <div>
+        <h3 className="font-serif text-xl font-bold leading-none">Dashboard</h3>
+        <p className="text-[9px] text-gray-500 mt-1">Monday, Aug 3, 2026</p>
       </div>
-      <div className="space-y-2.5">
-        {[
-          { ticker: 'NVDA', change: '+4.2%', up: true },
-          { ticker: 'TSLA', change: '-2.3%', up: false },
-          { ticker: 'META', change: '+1.8%', up: true },
-          { ticker: 'AAPL', change: '+0.7%', up: true },
-        ].map((t) => (
-          <div key={t.ticker} className="flex justify-between items-center">
-            <span className="text-xs font-medium">{t.ticker}</span>
-            <span className={`text-xs font-semibold ${t.up ? 'text-primary' : 'text-red-400'}`}>{t.change}</span>
+
+      {/* Search */}
+      <div className="flex items-center gap-2 rounded-full bg-dark-400 border border-white/[0.06] px-3 py-2">
+        <Search className="w-3.5 h-3.5 text-gray-500" />
+        <span className="text-[10px] text-gray-500">Search for a module…</span>
+      </div>
+
+      {/* Filter chips */}
+      <div className="flex items-center gap-1.5 overflow-hidden">
+        {chips.map((c) => (
+          <span
+            key={c.label}
+            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-semibold whitespace-nowrap ${
+              c.active
+                ? 'bg-primary text-black'
+                : 'bg-dark-400 border border-white/[0.06] text-gray-400'
+            }`}
+          >
+            <c.icon className="w-2.5 h-2.5" />
+            {c.label}
+          </span>
+        ))}
+      </div>
+
+      {/* Trending tickers */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="font-serif text-sm font-bold">Trending Tickers</h4>
+          <span className="text-[9px] font-semibold text-primary">View All</span>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {ranks.map((r) => (
+            <div key={r.ticker} className={`${CARD} p-2.5 flex flex-col items-center text-center gap-1`}>
+              <span className="w-6 h-6 rounded-full border border-primary/40 flex items-center justify-center text-[9px] font-bold text-primary">
+                {r.rank}
+              </span>
+              <span className="text-xs font-bold">{r.ticker}</span>
+              <span className="text-[8px] text-gray-500">{r.mentions} mentions</span>
+              <span
+                className={`text-[7px] font-bold tracking-wide rounded px-1.5 py-0.5 border ${
+                  r.bull ? 'border-primary/50 text-primary' : 'border-red-500/50 text-red-400'
+                }`}
+              >
+                {r.bull ? 'BULLISH' : 'BEARISH'}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Top news */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="font-serif text-sm font-bold">Top News</h4>
+          <span className="text-[9px] font-semibold text-primary">More</span>
+        </div>
+        <div className={`${CARD} p-3`}>
+          <p className="text-[11px] font-semibold leading-snug">Fed holds rates steady; futures tick higher</p>
+          <div className="flex items-center gap-2 mt-1.5 text-[8px] text-gray-500">
+            <span>Reuters</span>
+            <span>·</span>
+            <span>12m ago</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+/* ---- Markets / Overview ---- */
+const MarketsScreen = () => {
+  const modules = [
+    { icon: Newspaper, title: 'News List', desc: 'Breaking macro & stock news' },
+    { icon: Hexagon, title: 'Trending Tickers', desc: 'Unusual volume & smart money' },
+    { icon: TrendingUp, title: 'Insider Flow', desc: 'Live SEC Form 4 filings' },
+    { icon: Landmark, title: 'Congress Trades', desc: 'STOCK Act disclosures' },
+  ]
+  return (
+    <motion.div key="markets" {...screenAnim} className="space-y-3">
+      {/* Logo hero */}
+      <div className="relative flex flex-col items-center pt-1 pb-1">
+        <div className="absolute top-2 w-40 h-16 bg-primary/20 blur-2xl rounded-full pointer-events-none" />
+        <div className="relative">
+          <LogoMark size={52} />
+        </div>
+        <h3 className="relative font-serif text-lg font-bold mt-1">
+          <span className="text-primary">Markets</span> Overview
+        </h3>
+        <p className="relative text-[9px] text-gray-500 text-center leading-snug mt-1 px-2">
+          All your signals in one place — let the market speak.
+        </p>
+      </div>
+
+      {/* Module cards */}
+      <div className="space-y-2">
+        {modules.map((m) => (
+          <div
+            key={m.title}
+            className={`${CARD} p-3 flex items-center gap-3 hover:border-primary/30 transition-colors`}
+          >
+            <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/40 flex items-center justify-center flex-shrink-0">
+              <m.icon className="w-4 h-4 text-primary" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-serif text-[13px] font-bold leading-tight">{m.title}</div>
+              <div className="text-[9px] text-gray-500 truncate">{m.desc}</div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
           </div>
         ))}
       </div>
-    </div>
-    <div className="grid grid-cols-2 gap-2">
-      <div className="bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm">
-        <div className="text-[9px] text-gray-400 uppercase">24h Vol</div>
-        <div className="text-sm font-bold mt-1">$2.4M</div>
-      </div>
-      <div className="bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm">
-        <div className="text-[9px] text-gray-400 uppercase">Win Rate</div>
-        <div className="text-sm font-bold mt-1 text-primary">68%</div>
-      </div>
-    </div>
-  </motion.div>
-)
+    </motion.div>
+  )
+}
 
-const InsiderScreen = () => (
-  <motion.div key="insider" {...screenAnim} className="space-y-2.5">
-    <div className="flex items-center gap-2 mb-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-      <span className="text-[10px] uppercase tracking-widest text-gray-400">Live · Form 4</span>
-    </div>
-    {[
-      { t: 'NVDA', n: 'Jensen Huang', r: 'CEO', v: '$15.2M', up: false, ago: '2h' },
-      { t: 'TSLA', n: 'Elon Musk', r: 'CEO', v: '$22.4M', up: true, ago: '6h' },
-      { t: 'META', n: 'M. Zuckerberg', r: 'CEO', v: '$23.1M', up: false, ago: '1d' },
-      { t: 'AAPL', n: 'Tim Cook', r: 'CEO', v: '$5.9M', up: false, ago: '2d' },
-      { t: 'AMZN', n: 'Andy Jassy', r: 'CEO', v: '$8.2M', up: true, ago: '3d' },
-      { t: 'GOOG', n: 'Sundar Pichai', r: 'CEO', v: '$11.4M', up: false, ago: '4d' },
-    ].map((i, idx) => (
-      <div key={idx} className="bg-white/5 border border-white/10 rounded-xl p-3 flex items-center justify-between backdrop-blur-sm">
-        <div className="flex items-center gap-2.5">
-          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${i.up ? 'bg-primary/15 text-primary' : 'bg-red-500/15 text-red-400'}`}>
-            {i.up ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
+/* ---- Watchlist ---- */
+const WatchlistScreen = () => {
+  const stats = [
+    { label: 'Total Stocks', value: '5', active: true },
+    { label: 'Gainers', value: '3', active: false },
+    { label: 'Losers', value: '2', active: false },
+  ]
+  const yLabels = ['$186.4', '$184.8', '$181.0', '$178.2']
+  return (
+    <motion.div key="watchlist" {...screenAnim} className="space-y-3">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-full border border-primary/50 flex items-center justify-center">
+            <Star className="w-3.5 h-3.5 text-primary" fill="#00FFC8" />
           </div>
           <div>
-            <div className="text-xs font-semibold">{i.t}</div>
-            <div className="text-[10px] text-gray-400">{i.n} · {i.r}</div>
+            <h3 className="font-serif text-base font-bold leading-none">WatchList</h3>
+            <p className="text-[8px] text-gray-500 mt-0.5">Track your favorite stocks</p>
           </div>
         </div>
-        <div className="text-right">
-          <div className="text-xs font-bold">{i.v}</div>
-          <div className="text-[9px] text-gray-500">{i.ago} ago</div>
+        <div className="w-7 h-7 rounded-lg bg-dark-400 border border-white/10 flex items-center justify-center">
+          <Pencil className="w-3 h-3 text-gray-300" />
         </div>
       </div>
-    ))}
-  </motion.div>
-)
 
-const PoliticianScreen = () => (
-  <motion.div key="politician" {...screenAnim} className="space-y-2.5">
-    <div className="flex items-center gap-2 mb-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-      <span className="text-[10px] uppercase tracking-widest text-gray-400">STOCK Act · Live</span>
-    </div>
-    {[
-      { t: 'NVDA', n: 'Nancy Pelosi', p: 'D', s: 'CA', v: '$1M – $5M', up: true },
-      { t: 'MSFT', n: 'Dan Crenshaw', p: 'R', s: 'TX', v: '$15K – $50K', up: true },
-      { t: 'XOM', n: 'T. Tuberville', p: 'R', s: 'AL', v: '$50K – $100K', up: false },
-      { t: 'GOOG', n: 'J. Gottheimer', p: 'D', s: 'NJ', v: '$15K – $50K', up: true },
-      { t: 'LMT', n: 'M. McCaul', p: 'R', s: 'TX', v: '$100K – $250K', up: true },
-      { t: 'AAPL', n: 'M. Greene', p: 'R', s: 'GA', v: '$15K – $50K', up: false },
-    ].map((p, idx) => (
-      <div key={idx} className="bg-white/5 border border-white/10 rounded-xl p-3 flex items-center justify-between backdrop-blur-sm">
-        <div className="flex items-center gap-2.5">
-          <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[9px] ${p.p === 'D' ? 'bg-blue-500/15 text-blue-400' : 'bg-red-500/15 text-red-400'}`}>
-            {p.p}-{p.s}
-          </div>
-          <div>
-            <div className="text-xs font-semibold">{p.n}</div>
-            <div className="text-[10px] text-gray-400">{p.t} · {p.up ? 'Buy' : 'Sell'}</div>
-          </div>
-        </div>
-        <div className="text-right text-[10px] font-semibold">{p.v}</div>
-      </div>
-    ))}
-  </motion.div>
-)
-
-const TrumpScreen = () => (
-  <motion.div key="trump" {...screenAnim} className="space-y-2.5">
-    <div className="flex items-center gap-2 mb-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-      <span className="text-[10px] uppercase tracking-widest text-gray-400">Truth Social · Live</span>
-    </div>
-    {[
-      { time: '12m', text: 'Tariffs on China will be increased by 25% effective immediately!', sentiment: 'Negative', tickers: ['AAPL', 'NVDA'], impact: '-2.4%' },
-      { time: '2h', text: 'Just signed the largest infrastructure bill in American history.', sentiment: 'Positive', tickers: ['CAT', 'URI'], impact: '+4.1%' },
-      { time: '5h', text: 'Pharma companies need to lower prices NOW.', sentiment: 'Negative', tickers: ['PFE', 'MRK'], impact: '-3.8%' },
-      { time: '1d', text: 'Energy independence is back. Drill, baby, drill.', sentiment: 'Positive', tickers: ['XOM', 'CVX'], impact: '+2.6%' },
-    ].map((p, idx) => (
-      <div key={idx} className="bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-[9px] text-gray-500">{p.time} ago</span>
-          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${p.sentiment === 'Positive' ? 'bg-primary/15 text-primary' : 'bg-red-500/15 text-red-400'}`}>
-            {p.sentiment}
+      {/* Performance */}
+      <div className={`${CARD} p-3`}>
+        <div className="flex items-center justify-between mb-2.5">
+          <span className="text-[9px] font-semibold uppercase tracking-widest text-gray-400">
+            Watchlist Performance
           </span>
+          <LivePill />
         </div>
-        <p className="text-[11px] leading-snug mb-2">&ldquo;{p.text}&rdquo;</p>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1">
-            {p.tickers.map((t) => (
-              <span key={t} className="text-[9px] px-1.5 py-0.5 rounded bg-white/10 font-medium">${t}</span>
+        <div className="grid grid-cols-3 gap-2">
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className={`rounded-xl p-2 flex flex-col items-center gap-1 border ${
+                s.active ? 'border-primary/60 bg-primary/[0.04]' : 'border-white/[0.06] bg-dark-400'
+              }`}
+            >
+              <span className="text-[8px] text-gray-400 text-center leading-tight">{s.label}</span>
+              <span className="text-lg font-bold text-primary leading-none">{s.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Search */}
+      <div className="flex items-center gap-2 rounded-full bg-dark-400 border border-white/[0.06] px-3 py-2">
+        <Search className="w-3.5 h-3.5 text-gray-500" />
+        <span className="text-[10px] text-gray-500">Search watchlist…</span>
+      </div>
+
+      {/* Ticker card */}
+      <div className="relative rounded-2xl bg-dark-300 border border-white/[0.06] p-3 overflow-hidden">
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-2xl" />
+        <div className="flex items-start justify-between mb-2 pl-1.5">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-primary bg-primary/10 border border-primary/30 rounded-md px-1.5 py-1">
+              NVDA
+            </span>
+            <div>
+              <div className="text-sm font-bold leading-none">NVDA</div>
+              <div className="text-[8px] text-gray-500 mt-0.5">NVIDIA Corp</div>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-sm font-bold">$184.20</div>
+            <div className="text-[10px] font-semibold text-primary flex items-center justify-end gap-0.5">
+              <TrendingUp className="w-2.5 h-2.5" /> 2.14%
+            </div>
+          </div>
+        </div>
+
+        {/* Chart with axes */}
+        <div className="flex pl-1.5">
+          <div className="flex flex-col justify-between text-[6px] text-gray-600 pr-1 py-0.5 h-16">
+            {yLabels.map((l) => (
+              <span key={l}>{l}</span>
             ))}
           </div>
-          <span className={`text-[10px] font-bold ${p.impact.startsWith('+') ? 'text-primary' : 'text-red-400'}`}>{p.impact}</span>
-        </div>
-      </div>
-    ))}
-  </motion.div>
-)
-
-const VoxAIScreen = () => (
-  <motion.div key="voxai" {...screenAnim} className="flex flex-col h-full">
-    <div className="flex items-center gap-2 mb-3 pb-3 border-b border-white/10">
-      <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
-        <BrainCircuit className="w-4 h-4 text-black" />
-      </div>
-      <div>
-        <div className="text-xs font-semibold">VoxAI</div>
-        <div className="text-[9px] text-primary flex items-center gap-1">
-          <span className="w-1 h-1 rounded-full bg-primary animate-pulse" /> Online
-        </div>
-      </div>
-    </div>
-    <div className="space-y-2.5 flex-1">
-      {[
-        { role: 'user', text: "What's driving NVDA today?" },
-        { role: 'ai', text: 'NVDA is up 3.2% on three catalysts: Morgan Stanley raised PT to $180, a $5B Saudi AI deal, and 4:1 bullish call flow.' },
-        { role: 'user', text: 'Insider activity?' },
-        { role: 'ai', text: 'Jensen Huang sold 120k shares - but it’s a pre-scheduled 10b5-1 plan, so not a directional signal.' },
-        { role: 'user', text: 'Should I buy?' },
-        { role: 'ai', text: 'Not advice - but momentum + flow look constructive. Watch the $135 support.' },
-      ].map((m, i) => (
-        <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-          <div
-            className={`max-w-[88%] p-2.5 rounded-2xl text-[11px] leading-snug ${
-              m.role === 'user' ? 'bg-primary text-black' : 'bg-white/5 border border-white/10 backdrop-blur-sm'
-            }`}
-          >
-            {m.text}
+          <div className="relative flex-1 h-16">
+            <AreaChart />
           </div>
         </div>
-      ))}
-    </div>
-    <div className="flex items-center gap-2 p-2.5 mt-3 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
-      <span className="flex-1 text-[10px] text-gray-500">Ask VoxAI anything…</span>
-      <Send className="w-3 h-3 text-primary" />
-    </div>
-  </motion.div>
-)
+        <div className="flex justify-between text-[6px] text-gray-600 mt-1 pl-9 pr-1">
+          {['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'].map((d) => (
+            <span key={d}>{d}</span>
+          ))}
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-3 gap-1 mt-2.5 pt-2.5 border-t border-white/[0.06] pl-1.5">
+          {[
+            { l: 'Volume', v: '48.2M' },
+            { l: 'Day High', v: '185.9' },
+            { l: 'Day Low', v: '180.4' },
+          ].map((s) => (
+            <div key={s.l}>
+              <div className="text-[7px] text-gray-500 uppercase tracking-wide">{s.l}</div>
+              <div className="text-[10px] font-semibold mt-0.5">{s.v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+/* ---- Profile (no screenshot reference — built from shown design language) ---- */
+const ProfileScreen = () => {
+  const settings = [
+    { icon: Bell, label: 'Notifications' },
+    { icon: Shield, label: 'Security' },
+    { icon: Settings, label: 'Appearance' },
+    { icon: HelpCircle, label: 'Help & Support' },
+  ]
+  return (
+    <motion.div key="profile" {...screenAnim} className="space-y-3.5">
+      <h3 className="font-serif text-xl font-bold">Profile</h3>
+
+      {/* Identity */}
+      <div className={`${CARD} p-4 flex items-center gap-3`}>
+        <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center">
+          <span className="text-lg font-bold text-black">B</span>
+        </div>
+        <div>
+          <div className="text-sm font-bold">Brendan</div>
+          <span className="inline-flex items-center gap-1 mt-1 rounded-full border border-primary/40 px-2 py-0.5 text-[8px] font-semibold text-primary">
+            <Sparkles className="w-2.5 h-2.5" /> PRO MEMBER
+          </span>
+        </div>
+      </div>
+
+      {/* Stat row */}
+      <div className="grid grid-cols-3 gap-2">
+        {[
+          { l: 'Watchlists', v: '5' },
+          { l: 'Alerts', v: '12' },
+          { l: 'Following', v: '38' },
+        ].map((s) => (
+          <div key={s.l} className={`${CARD} p-2.5 flex flex-col items-center gap-0.5`}>
+            <span className="text-lg font-bold text-primary leading-none">{s.v}</span>
+            <span className="text-[8px] text-gray-500">{s.l}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Settings list */}
+      <div className="space-y-2">
+        {settings.map((s) => (
+          <div
+            key={s.label}
+            className={`${CARD} p-3 flex items-center gap-3 hover:border-primary/30 transition-colors`}
+          >
+            <div className="w-8 h-8 rounded-lg bg-dark-400 border border-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <s.icon className="w-3.5 h-3.5 text-primary" />
+            </div>
+            <span className="flex-1 text-[11px] font-medium">{s.label}</span>
+            <ChevronRight className="w-4 h-4 text-gray-600" />
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
 
 /* ---------- Floating mini box (satellite) ---------- */
 type MiniBoxProps = {
@@ -275,11 +489,10 @@ const MiniBox = ({ icon: Icon, label, style, bobDuration = 5, bobOffset = 0, del
 /* ---------- Hero ---------- */
 const Hero = () => {
   const tabs = [
-    { key: 'dashboard', label: 'Home', icon: LayoutDashboard, screen: <DashboardScreen /> },
-    { key: 'insider', label: 'Insider', icon: TrendingUp, screen: <InsiderScreen /> },
-    { key: 'politicians', label: 'Politics', icon: Users, screen: <PoliticianScreen /> },
-    { key: 'trump', label: 'Trump', icon: Activity, screen: <TrumpScreen /> },
-    { key: 'voxai', label: 'VoxAI', icon: BrainCircuit, screen: <VoxAIScreen /> },
+    { key: 'home', label: 'Home', icon: Home, screen: <HomeScreen /> },
+    { key: 'markets', label: 'Markets', icon: LineChart, screen: <MarketsScreen /> },
+    { key: 'watchlist', label: 'Watchlist', icon: Star, screen: <WatchlistScreen /> },
+    { key: 'profile', label: 'Profile', icon: User, screen: <ProfileScreen /> },
   ]
   const [activeTab, setActiveTab] = useState(0)
   const pauseUntilRef = useRef(0)
@@ -288,7 +501,7 @@ const Hero = () => {
     const id = setInterval(() => {
       if (Date.now() < pauseUntilRef.current) return
       setActiveTab((t) => (t + 1) % tabs.length)
-    }, 3000)
+    }, 3500)
     return () => clearInterval(id)
   }, [tabs.length])
 
@@ -438,77 +651,61 @@ const Hero = () => {
                   <div className="relative w-full h-full bg-black rounded-[41px] overflow-hidden flex flex-col">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-30" />
 
+                    {/* Status bar */}
                     <div className="flex justify-between items-center px-7 pt-3.5 pb-2 z-20">
                       <span className="text-[11px] font-semibold">9:41</span>
-                      <div className="flex items-center gap-1">
-                        <div className="w-3 h-3 border-[1.5px] border-white rounded-sm" />
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[8px] font-semibold text-gray-300">5G</span>
                         <div className="w-5 h-2.5 border border-white rounded-[3px] relative">
                           <div className="absolute right-[1px] top-[1px] bottom-[1px] left-[3px] bg-primary rounded-[1px]" />
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between px-5 py-2">
-                      <div className="flex items-center gap-1.5">
-                        <svg width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <defs>
-                            <filter id="heroLogoGlow" x="-40%" y="-40%" width="180%" height="180%">
-                              <feGaussianBlur stdDeviation="2.2" result="blur" />
-                              <feMerge>
-                                <feMergeNode in="blur" />
-                                <feMergeNode in="SourceGraphic" />
-                              </feMerge>
-                            </filter>
-                          </defs>
-                          <g filter="url(#heroLogoGlow)">
-                            <rect x="17.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
-                            <rect x="33.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
-                            <rect x="49.2" y="10" width="1.6" height="80" rx="0.8" fill="#3DF0DA" />
-                            <rect x="65.2" y="18" width="1.6" height="64" rx="0.8" fill="#1CE7C9" />
-                            <rect x="81.2" y="30" width="1.6" height="44" rx="0.8" fill="#00C896" />
-                            <rect x="12" y="40" width="12" height="24" rx="3" fill="#00C896" />
-                            <rect x="28" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
-                            <rect x="44" y="20" width="12" height="56" rx="3" fill="#3DF0DA" />
-                            <rect x="60" y="28" width="12" height="44" rx="3" fill="#1CE7C9" />
-                            <rect x="76" y="40" width="12" height="24" rx="3" fill="#00C896" />
-                          </g>
-                        </svg>
-                        <span className="text-sm font-bold tracking-tight">
-                          Vox<span className="text-primary">Trade</span>
-                        </span>
-                      </div>
-                      <span className="text-[9px] uppercase tracking-widest text-gray-500">
-                        {tabs[activeTab].label}
-                      </span>
-                    </div>
-
+                    {/* Screen content */}
                     <div className="flex-1 px-4 pt-2 pb-2 overflow-hidden relative">
                       <AnimatePresence mode="wait">
                         <motion.div key={tabs[activeTab].key} className="h-full">
                           {tabs[activeTab].screen}
                         </motion.div>
                       </AnimatePresence>
+                      {/* fade the content into the nav */}
+                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black to-transparent" />
                     </div>
 
-                    <div className="border-t border-white/10 bg-black/80 backdrop-blur-xl px-2 py-2 pb-3">
-                      <div className="grid grid-cols-5 gap-1">
+                    {/* Bottom nav */}
+                    <div className="border-t border-white/[0.06] bg-black px-2 pt-2 pb-3">
+                      <div className="grid grid-cols-4 gap-1">
                         {tabs.map((tab, i) => {
                           const active = activeTab === i
                           return (
                             <button
                               key={tab.key}
                               onClick={() => handleTabClick(i)}
-                              className="relative flex flex-col items-center justify-center gap-1 py-2 rounded-xl transition-colors"
+                              className="flex flex-col items-center gap-1 py-1"
+                              aria-label={tab.label}
                             >
-                              {active && (
-                                <motion.div
-                                  layoutId="hero-active-tab"
-                                  className="absolute inset-0 rounded-xl bg-primary"
-                                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                              <motion.div
+                                initial={false}
+                                animate={{ scale: active ? 1 : 0.96 }}
+                                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                                className={`flex items-center justify-center w-11 h-9 rounded-xl border transition-colors ${
+                                  active
+                                    ? 'bg-primary/[0.12] border-primary/60'
+                                    : 'border-transparent'
+                                }`}
+                                style={active ? { boxShadow: '0 0 16px -2px rgba(0,255,200,0.5)' } : undefined}
+                              >
+                                <tab.icon
+                                  className={`w-[18px] h-[18px] ${active ? 'text-primary' : 'text-gray-500'}`}
+                                  strokeWidth={active ? 2.2 : 1.8}
                                 />
-                              )}
-                              <tab.icon className={`w-[18px] h-[18px] relative z-10 ${active ? 'text-black' : 'text-gray-500'}`} />
-                              <span className={`text-[9px] font-semibold relative z-10 ${active ? 'text-black' : 'text-gray-500'}`}>
+                              </motion.div>
+                              <span
+                                className={`text-[9px] ${
+                                  active ? 'text-primary font-semibold' : 'text-gray-500'
+                                }`}
+                              >
                                 {tab.label}
                               </span>
                             </button>
