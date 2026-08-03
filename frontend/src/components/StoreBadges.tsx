@@ -1,17 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+const APP_STORE_URL = 'https://apps.apple.com/us/app/voxtrade/id6759360506'
+const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.app.voxtrade'
 
 type BadgeProps = {
   className?: string
-  onClick?: () => void
+  href: string
   ariaLabel?: string
 }
 
-export const AppStoreBadge = ({ className = 'h-12 w-auto', onClick, ariaLabel = 'Download on the App Store' }: BadgeProps) => (
-  <button
-    type="button"
-    onClick={onClick}
+export const AppStoreBadge = ({ className = 'h-12 w-auto', href, ariaLabel = 'Download on the App Store' }: BadgeProps) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
     aria-label={ariaLabel}
     className="inline-block hover:scale-105 hover:shadow-lg hover:shadow-primary/30 rounded-md transition-all"
   >
@@ -32,13 +34,14 @@ export const AppStoreBadge = ({ className = 'h-12 w-auto', onClick, ariaLabel = 
         App Store
       </text>
     </svg>
-  </button>
+  </a>
 )
 
-export const GooglePlayBadge = ({ className = 'h-12 w-auto', onClick, ariaLabel = 'Get it on Google Play' }: BadgeProps) => (
-  <button
-    type="button"
-    onClick={onClick}
+export const GooglePlayBadge = ({ className = 'h-12 w-auto', href, ariaLabel = 'Get it on Google Play' }: BadgeProps) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
     aria-label={ariaLabel}
     className="inline-block hover:scale-105 hover:shadow-lg hover:shadow-primary/30 rounded-md transition-all"
   >
@@ -55,58 +58,15 @@ export const GooglePlayBadge = ({ className = 'h-12 w-auto', onClick, ariaLabel 
         Google Play
       </text>
     </svg>
-  </button>
+  </a>
 )
 
 const StoreBadges = ({ className = '', size = 'h-12 w-auto' }: { className?: string; size?: string }) => {
-  const [showComingSoon, setShowComingSoon] = useState(false)
-  const open = () => setShowComingSoon(true)
-  const close = () => setShowComingSoon(false)
-
-  // ESC to close
-  useEffect(() => {
-    if (!showComingSoon) return
-    const handler = (e: KeyboardEvent) => e.key === 'Escape' && close()
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [showComingSoon])
-
   return (
-    <>
-      <div className={`flex flex-wrap items-center gap-4 ${className}`}>
-        <AppStoreBadge className={size} onClick={open} />
-        <GooglePlayBadge className={size} onClick={open} />
-      </div>
-
-      {showComingSoon && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
-          onClick={close}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="coming-soon-title"
-        >
-          <div
-            className="bg-dark-100 border border-primary/30 rounded-2xl p-8 max-w-md text-center shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-            style={{ boxShadow: '0 30px 80px -20px rgba(0,0,0,0.8), 0 0 60px -10px rgba(0,255,200,0.25)' }}
-          >
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 id="coming-soon-title" className="text-2xl font-bold mb-2">Coming Soon!</h3>
-            <p className="text-gray-400 mb-6">
-              VoxTrade app is launching soon on App Store and Google Play. Stay tuned!
-            </p>
-            <button onClick={close} className="btn-primary">
-              Got it!
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+    <div className={`flex flex-wrap items-center gap-4 ${className}`}>
+      <AppStoreBadge className={size} href={APP_STORE_URL} />
+      <GooglePlayBadge className={size} href={GOOGLE_PLAY_URL} />
+    </div>
   )
 }
 
